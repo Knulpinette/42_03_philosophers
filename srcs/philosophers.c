@@ -18,7 +18,7 @@ void	*live_life(void *philosopher)
 	return ((void *)"hello\n");
 }
 
-void	run_simulation(t_simulation *simulation, int nb_philosophers)
+static void	run_simulation(t_simulation *simulation, int nb_philosophers)
 {
 	pthread_t	*philosophers;
 	int			i;
