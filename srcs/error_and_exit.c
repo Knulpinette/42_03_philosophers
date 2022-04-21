@@ -39,12 +39,12 @@ static void    error_message(int error)
 }
 
 void    error_and_exit(t_errors error, pthread_t *philosophers, 
-                        t_simulation *result, pthread_mutex_t *forks)
+                        t_life *lives, pthread_mutex_t *forks)
 {
      if (philosophers)
         free(philosophers);
-    if (result)
-        free(result);
+    if (lives)
+        free(lives);
     if (forks)
         free(forks);
     error_message(error);

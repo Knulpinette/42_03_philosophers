@@ -58,8 +58,10 @@ typedef struct s_simulation
     int	number_of_times_each_philosophers_must_eat;
 }               t_simulation;
 
-// pthread_t		philosophers;
-// pthread_mutex_t	forks;
+typedef	struct s_life
+{
+	int	life;
+}				t_life;
 
 /* ************************************************************************** */
 /*							  Initialisation      			                  */
@@ -93,6 +95,6 @@ typedef enum e_errors
 }               t_errors;
 
 void    error_and_exit(t_errors error, pthread_t *philosophers,
-						t_simulation *result, pthread_mutex_t *forks);
+						t_life *lives, pthread_mutex_t *forks);
 
 #endif

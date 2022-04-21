@@ -29,7 +29,7 @@ static void	run_simulation(t_simulation *simulation, int nb_philosophers)
 	i = 0;
 	while (i < nb_philosophers)
 	{
-		if (pthread_create(philosophers + i, NULL, &live_life, NULL)) //, (void *)lives_of_philosophers[i]);
+		if (pthread_create(philosophers + i, NULL, &live_life, NULL)) //, (void *)lives[i]);
 			error_and_exit(THREAD_ERROR, philosophers, NULL, NULL);
 		i++;
 	}
