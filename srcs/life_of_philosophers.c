@@ -12,6 +12,12 @@
 
 #include "philosophers.h"
 
+void	*live_life(void *lives)
+{
+	(void)lives;
+	return ((void *)"hello\n");
+}
+
 /*
 void	state_of_philosopher(p_thread *philosopher)
 {

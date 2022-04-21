@@ -12,12 +12,6 @@
 
 #include "philosophers.h"
 
-void	*live_life(void *philosopher)
-{
-	(void)philosopher;
-	return ((void *)"hello\n");
-}
-
 static void	run_simulation(t_simulation *simulation, int nb_philosophers)
 {
 	pthread_t	*philosophers;
