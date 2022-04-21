@@ -92,7 +92,8 @@ typedef enum e_errors
 	THREAD_ERROR,
 }               t_errors;
 
-void    error_and_exit(t_errors error, t_simulation *simulation);
+void    error_and_exit(t_errors error, pthread_t *philosophers,
+						t_simulation *result, pthread_mutex_t *forks);
 void    error_message(int error);
 
 #endif

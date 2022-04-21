@@ -12,10 +12,16 @@
 
 #include "philosophers.h"
 
-void    error_and_exit(t_errors error, t_simulation *simulation)
+void    error_and_exit(t_errors error, pthread_t *philosophers, 
+                        t_simulation *result, pthread_mutex_t *forks)
 {
+     if (philosophers)
+        free(philosophers);
+    if (result)
+        free(result);
+    if (forks)
+        free(forks);
     error_message(error);
-    (void)simulation;
     exit(EXIT_FAILURE);
 }
 

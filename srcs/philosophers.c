@@ -25,19 +25,19 @@ static void	run_simulation(t_simulation *simulation, int nb_philosophers)
 
 	philosophers = malloc(sizeof(pthread_t) * nb_philosophers);
 	if (!philosophers)
-		error_and_exit(FAIL_MALLOC, NULL);
+		error_and_exit(FAIL_MALLOC, NULL, NULL, NULL);
 	i = 0;
 	while (i < nb_philosophers)
 	{
 		if (pthread_create(philosophers + i, NULL, &live_life, NULL)) //, (void *)lives_of_philosophers[i]);
-			error_and_exit(THREAD_ERROR, NULL);
+			error_and_exit(THREAD_ERROR, philosophers, NULL, NULL);
 		i++;
 	}
 	i = 0;
 	while (i < nb_philosophers)
 	{
 		if (pthread_join(philosophers[i], NULL))
-			error_and_exit(THREAD_ERROR, NULL);
+			error_and_exit(THREAD_ERROR, philosophers, NULL, NULL);
 		i++;
 	}
 	free(philosophers);
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	t_simulation	simulation;
 
 	if (!argc || (argc < 5 || argc > 6))
-		error_and_exit(WRONG_INPUT, NULL);
+		error_and_exit(WRONG_INPUT, NULL, NULL, NULL);
 	simulation = get_simulation_parameters(argc, argv);
 	run_simulation(&simulation, simulation.number_of_philosophers);
 	print_philosophers(&simulation);

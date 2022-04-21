@@ -32,7 +32,7 @@ t_simulation	get_simulation_parameters(int argc, char **argv)
 			simulation.number_of_times_each_philosophers_must_eat = 
 					ft_atoi(argv[i]);
 		else
-			error_and_exit(WRONG_INPUT, NULL);
+			error_and_exit(WRONG_INPUT, NULL, NULL, NULL);
 		i++;
 	}
 	return (simulation);
