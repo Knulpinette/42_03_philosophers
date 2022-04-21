@@ -12,19 +12,6 @@
 
 #include "philosophers.h"
 
-void    error_and_exit(t_errors error, pthread_t *philosophers, 
-                        t_simulation *result, pthread_mutex_t *forks)
-{
-     if (philosophers)
-        free(philosophers);
-    if (result)
-        free(result);
-    if (forks)
-        free(forks);
-    error_message(error);
-    exit(EXIT_FAILURE);
-}
-
 static void print_instruction(void)
 {
     printf("    📚 "PURPLE"INSTRUCTIONS"END_COLOR"  📚\n");
@@ -35,7 +22,7 @@ static void print_instruction(void)
     printf(""END_COLOR"");
 }
 
-void    error_message(int error)
+static void    error_message(int error)
 {
     if (error == NO_PRINT)
         return ;
@@ -49,4 +36,17 @@ void    error_message(int error)
         printf("Failure to thread\n");
     if (error == FAIL_MALLOC)
         printf("Failure to allocate memory\n");
+}
+
+void    error_and_exit(t_errors error, pthread_t *philosophers, 
+                        t_simulation *result, pthread_mutex_t *forks)
+{
+     if (philosophers)
+        free(philosophers);
+    if (result)
+        free(result);
+    if (forks)
+        free(forks);
+    error_message(error);
+    exit(EXIT_FAILURE);
 }
