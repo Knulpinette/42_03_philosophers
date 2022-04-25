@@ -36,7 +36,7 @@ t_simulation	get_simulation_parameters(int argc, char **argv)
 			simulation.nb_of_meals = ft_atoi(argv[i]);
 		}
 		else
-			error_and_exit(WRONG_INPUT, NULL, NULL, NULL);
+			error_and_exit(WRONG_INPUT, NULL, NULL, NULL, NULL);
 		i++;
 	}
 	return (simulation);
@@ -48,6 +48,7 @@ t_fork	*init_forks(int nb_forks)
 	int		i;
 
 	forks = (t_fork *)malloc(sizeof(t_fork) * nb_forks);
+	memset(forks, 0, nb_forks);
 	i = 0;
 	while (i < nb_forks)
 	{
@@ -64,6 +65,7 @@ t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks)
 	t_philosopher *philosophers;
 
 	philosophers = (t_philosopher *)malloc(sizeof(t_philosopher) * simulation->nb);
+	memset(philosophers, 0, simulation->nb);
 	(void)forks;
 	return (philosophers);
 }

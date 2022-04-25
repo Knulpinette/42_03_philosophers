@@ -133,7 +133,9 @@ typedef enum e_errors
 	THREAD_ERROR,
 }               t_errors;
 
-void    error_and_exit(t_errors error, pthread_t *threads,
-						t_philosopher *philosophers, pthread_mutex_t *forks);
+void	clean_the_table(pthread_t *threads, t_fork *forks,
+						t_simulation *simulation, t_philosopher *philosophers);
+void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
+						t_simulation *simulation, t_philosopher *philosophers);
 
 #endif

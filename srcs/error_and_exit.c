@@ -42,15 +42,28 @@ static void    error_message(int error)
 		printf("Failure to allocate memory\n");
 }
 
-void    error_and_exit(t_errors error, pthread_t *threads, 
-                        t_philosopher *philosophers, pthread_mutex_t *forks)
+void	clean_the_table(pthread_t *threads, t_fork *forks,
+						t_simulation *simulation, t_philosopher *philosophers)
 {
-     if (threads)
+	int	i;
+
+	i = 0;
+	if (threads)
 	 	free(threads);
     if (philosophers)
 		free(philosophers);
     if (forks)
+	{
+		while (i < simulation->nb)
+			pthread_mutex_destroy(&(forks[i++].mutex));
 		free(forks);
+	}
+}
+
+void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
+						t_simulation *simulation, t_philosopher *philosophers)
+{
+	clean_the_table(threads, forks, simulation, philosophers);
 	error_message(error);
 	exit(EXIT_FAILURE);
 }
