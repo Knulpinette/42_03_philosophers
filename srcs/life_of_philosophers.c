@@ -31,8 +31,7 @@ void	eating(t_philosopher *philosopher)
 	while (time_to_eat)
 		wait;
 	if (nb_of_times_philo_must_eat)
-		nb_of_meals++;
-	sleep(philosopher);*/
+		nb_of_meals++;*/
 	(void)philosopher;
 	printf("Philosopher is eating\n");
 	sleeping(philosopher);
@@ -43,8 +42,7 @@ void	sleeping(t_philosopher *philosopher)
 	/*if (its_the_end())
 		return ;
 	while (time_to_sleep)
-		wait;
-	think(philosopher);*/
+		wait;*/
 	(void)philosopher;
 	printf("Philosopher is sleeping\n");
 	thinking(philosopher);
@@ -55,8 +53,7 @@ void	thinking(t_philosopher *philosopher)
 	/*if (its_the_end())
 		return ;
 	while (not_able_to_eat)
-		wait;
-	eat(philosopher);*/
+		wait;*/
 	(void)philosopher;
 	printf("Philosopher is thinking\n");
 	//eating(philosopher);
