@@ -49,25 +49,54 @@ time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
 	the death of a philosopher.
 */
 
+typedef	long long t_ms;
+
 typedef struct s_simulation
 {
-    int	number_of_philosophers;
-    int time_to_die;
-    int	time_to_eat;
-    int	time_to_sleep;
-    int	number_of_times_each_philosophers_must_eat;
+    int				nb;
+	t_ms 			time_to_die;
+    t_ms			time_to_eat;
+    t_ms			time_to_sleep;
+	bool			is_nb_of_meals;
+    int				nb_of_meals;
+	t_ms			start_time;
+	pthread_mutex_t	print_mutex;
 }               t_simulation;
 
-typedef	struct s_life
+typedef struct s_fork
 {
-	int	life;
-}				t_life;
+	int				ID;
+	pthread_mutex_t	mutex;
+	bool			taken;
+	
+}				t_fork;
+
+
+typedef	struct s_philosopher
+{
+	int				ID;
+	t_fork			left_fork;
+	t_fork			right_fork;
+	t_ms			lifetime;
+	t_simulation	*simulation;
+}				t_philosopher;
 
 /* ************************************************************************** */
 /*							 life_of_philosopher  			                  */
 /* ************************************************************************** */
 
-void	*live_life(void *lives);
+typedef enum e_life_action
+{
+	FORK = 1,
+	EAT,
+	SLEEP,
+	THINK,
+	DIED,
+}				t_life_action;
+
+
+void	*live_life(void *philosophers);
+void	eat(t_philosopher *philosopher);
 
 /* ************************************************************************** */
 /*							  Initialisation      			                  */
@@ -75,6 +104,8 @@ void	*live_life(void *lives);
 
 t_simulation	init_simulation(void);
 t_simulation	get_simulation_parameters(int argc, char **argv);
+t_fork			*init_forks(int nb_forks);
+t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks);
 
 /* ************************************************************************** */
 /*								  Utils		       			                  */
@@ -102,7 +133,7 @@ typedef enum e_errors
 	THREAD_ERROR,
 }               t_errors;
 
-void    error_and_exit(t_errors error, pthread_t *philosophers,
-						t_life *lives, pthread_mutex_t *forks);
+void    error_and_exit(t_errors error, pthread_t *threads,
+						t_philosopher *philosophers, pthread_mutex_t *forks);
 
 #endif

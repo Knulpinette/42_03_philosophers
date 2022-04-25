@@ -12,40 +12,46 @@
 
 #include "philosophers.h"
 
-static void	run_simulation(t_simulation *simulation, int nb_philosophers)
+static void	run_simulation(t_simulation *simulation, 
+							t_fork *forks, t_philosopher *philosophers)
 {
-	pthread_t	*philosophers;
+	pthread_t	*threads;
 	int			i;
 
-	philosophers = malloc(sizeof(pthread_t) * nb_philosophers);
-	if (!philosophers)
+	threads = malloc(sizeof(pthread_t) * simulation->nb);
+	if (!threads)
 		error_and_exit(FAIL_MALLOC, NULL, NULL, NULL);
 	i = 0;
-	while (i < nb_philosophers)
+	while (i < simulation->nb)
 	{
-		if (pthread_create(philosophers + i, NULL, &live_life, NULL)) //, (void *)lives[i]);
-			error_and_exit(THREAD_ERROR, philosophers, NULL, NULL);
+		if (pthread_create(threads + i, NULL, &live_life, NULL)) //, (void *)philosophers[i]);
+			error_and_exit(THREAD_ERROR, threads, NULL, NULL);
 		i++;
 	}
 	i = 0;
-	while (i < nb_philosophers)
+	while (i < simulation->nb)
 	{
-		if (pthread_join(philosophers[i], NULL))
-			error_and_exit(THREAD_ERROR, philosophers, NULL, NULL);
+		if (pthread_join(threads[i], NULL))
+			error_and_exit(THREAD_ERROR, threads, NULL, NULL);
 		i++;
 	}
-	free(philosophers);
-	(void)simulation;
+	free(threads);
+	(void)forks;
+	(void)philosophers;
 }
 
 int	main(int argc, char **argv)
 {
 	t_simulation	simulation;
+	t_fork			*forks;
+	t_philosopher	*philosophers;
 
 	if (!argc || (argc < 5 || argc > 6))
 		error_and_exit(WRONG_INPUT, NULL, NULL, NULL);
 	simulation = get_simulation_parameters(argc, argv);
-	run_simulation(&simulation, simulation.number_of_philosophers);
+	forks = init_forks(simulation.nb);
+	philosophers = init_philosophers(&simulation, forks);
+	run_simulation(&simulation, forks, philosophers);
 	print_philosophers(&simulation);
 	return (EXIT_SUCCESS);
 }

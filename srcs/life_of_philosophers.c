@@ -12,11 +12,40 @@
 
 #include "philosophers.h"
 
-void	*live_life(void *lives)
+void	*live_life(void *newborn_philosopher)
 {
-	(void)lives;
-	return ((void *)"hello\n");
+	t_philosopher	*philosopher;
+
+	philosopher = (t_philosopher *)newborn_philosopher;
+	eat(philosopher);
+	return (NULL);
 }
+
+void	eat(t_philosopher *philosopher)
+{
+	/*take_right_fork(philosopher_id)
+	take_left_fork(philosopher_id + 1)
+	while (time_to_eat)
+		wait;
+	if (nb_of_times_philo_must_eat)
+		nb_of_meals++;
+	sleep(philosopher);*/
+	(void)philosopher;
+	printf("Philosopher is eating\n");
+}
+/*void	sleep(t_philosopher *philosopher)
+{
+	while (time_to_sleep)
+		wait;
+	think(philosopher);
+}
+//void	think(t_philosopher *philosopher)
+{
+	while (not_able_to_eat)
+		wait;
+	eat(philosopher);
+}
+*/
 
 /*
 void	state_of_philosopher(p_thread *philosopher)
