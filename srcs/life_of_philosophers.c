@@ -17,13 +17,15 @@ void	*live_life(void *newborn_philosopher)
 	t_philosopher	*philosopher;
 
 	philosopher = (t_philosopher *)newborn_philosopher;
-	eat(philosopher);
+	eating(philosopher);
 	return (NULL);
 }
 
-void	eat(t_philosopher *philosopher)
+void	eating(t_philosopher *philosopher)
 {
-	/*take_right_fork()
+	/*if (its_the_end())
+		return ;
+	take_right_fork()
 	take_left_fork()
 	(lock_mutexes)
 	while (time_to_eat)
@@ -33,20 +35,33 @@ void	eat(t_philosopher *philosopher)
 	sleep(philosopher);*/
 	(void)philosopher;
 	printf("Philosopher is eating\n");
+	sleeping(philosopher);
 }
-/*void	sleep(t_philosopher *philosopher)
+
+void	sleeping(t_philosopher *philosopher)
 {
+	/*if (its_the_end())
+		return ;
 	while (time_to_sleep)
 		wait;
-	think(philosopher);
+	think(philosopher);*/
+	(void)philosopher;
+	printf("Philosopher is sleeping\n");
+	thinking(philosopher);
 }
-//void	think(t_philosopher *philosopher)
+
+void	thinking(t_philosopher *philosopher)
 {
+	/*if (its_the_end())
+		return ;
 	while (not_able_to_eat)
 		wait;
-	eat(philosopher);
+	eat(philosopher);*/
+	(void)philosopher;
+	printf("Philosopher is thinking\n");
+	//eating(philosopher);
 }
-*/
+
 
 /*
 void	state_of_philosopher(p_thread *philosopher)

@@ -96,7 +96,9 @@ typedef enum e_life_action
 
 
 void	*live_life(void *philosophers);
-void	eat(t_philosopher *philosopher);
+void	eating(t_philosopher *philosopher);
+void	sleeping(t_philosopher *philosopher);
+void	thinking(t_philosopher *philosopher);
 
 /* ************************************************************************** */
 /*							  Initialisation      			                  */
