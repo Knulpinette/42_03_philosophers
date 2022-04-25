@@ -7,7 +7,7 @@ t_simulation	init_simulation(void)
 	simulation.nb = 0;
 	simulation.time_to_die = 0;
 	simulation.time_to_eat = 0;
-	simulation.is_nb_of_meals = false;
+	simulation.has_nb_of_meals = false;
 	simulation.nb_of_meals = 0;
 	simulation.start_time = 0;
 	return (simulation);
@@ -32,7 +32,7 @@ t_simulation	get_simulation_parameters(int argc, char **argv)
 			simulation.time_to_sleep = ft_atoi(argv[i]);
 		else if (i == 5 && is_number(argv[i]))
 		{
-			simulation.is_nb_of_meals = true;
+			simulation.has_nb_of_meals = true;
 			simulation.nb_of_meals = ft_atoi(argv[i]);
 		}
 		else
@@ -48,7 +48,8 @@ t_fork	*init_forks(int nb_forks)
 	int		i;
 
 	forks = (t_fork *)malloc(sizeof(t_fork) * nb_forks);
-	memset(forks, 0, nb_forks);
+	if (!forks)
+		return (NULL);
 	i = 0;
 	while (i < nb_forks)
 	{
@@ -63,9 +64,25 @@ t_fork	*init_forks(int nb_forks)
 t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks)
 {
 	t_philosopher *philosophers;
+	int				i;
 
 	philosophers = (t_philosopher *)malloc(sizeof(t_philosopher) * simulation->nb);
-	memset(philosophers, 0, simulation->nb);
-	(void)forks;
+	if (!philosophers)
+		return (NULL);
+	i = 0;
+	while (i < simulation->nb)
+	{
+		philosophers[i].ID = simulation->nb;
+		if (simulation->nb == 1)
+			philosophers[i].left_fork = NULL;
+		else if (i == simulation->nb - 1)
+			philosophers[i].left_fork = &forks[0];
+		else
+			philosophers[i].left_fork = &forks[i + 1];
+		philosophers[i].right_fork = &forks[i];
+		philosophers[i].lifetime = 0;
+		philosophers[i].simulation = simulation;
+		i++;
+	}
 	return (philosophers);
 }

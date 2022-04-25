@@ -23,8 +23,9 @@ void	*live_life(void *newborn_philosopher)
 
 void	eat(t_philosopher *philosopher)
 {
-	/*take_right_fork(philosopher_id)
-	take_left_fork(philosopher_id + 1)
+	/*take_right_fork()
+	take_left_fork()
+	(lock_mutexes)
 	while (time_to_eat)
 		wait;
 	if (nb_of_times_philo_must_eat)

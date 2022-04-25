@@ -12,7 +12,7 @@
 
 #include "philosophers.h"
 
-static void	run_simulation(t_simulation *simulation, 
+static int	run_simulation(t_simulation *simulation, 
 							t_fork *forks, t_philosopher *philosophers)
 {
 	pthread_t	*threads;
@@ -24,7 +24,7 @@ static void	run_simulation(t_simulation *simulation,
 	i = 0;
 	while (i < simulation->nb)
 	{
-		if (pthread_create(threads + i, NULL, &live_life, NULL)) //, (void *)philosophers[i]);
+		if (pthread_create(threads + i, NULL, &live_life, (void *)&philosophers[i]))
 			error_and_exit(THREAD_ERROR, threads, NULL, NULL, NULL);
 		i++;
 	}
@@ -35,8 +35,9 @@ static void	run_simulation(t_simulation *simulation,
 			error_and_exit(THREAD_ERROR, threads, NULL, NULL, NULL);
 		i++;
 	}
-	print_philosophers(simulation);
+	print_philosophers(simulation, philosophers);
 	clean_the_table(threads, forks, simulation, philosophers);
+	return (EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv)
@@ -50,6 +51,5 @@ int	main(int argc, char **argv)
 	simulation = get_simulation_parameters(argc, argv);
 	forks = init_forks(simulation.nb);
 	philosophers = init_philosophers(&simulation, forks);
-	run_simulation(&simulation, forks, philosophers);
-	return (EXIT_SUCCESS);
+	return (run_simulation(&simulation, forks, philosophers));
 }

@@ -57,7 +57,7 @@ typedef struct s_simulation
 	t_ms 			time_to_die;
     t_ms			time_to_eat;
     t_ms			time_to_sleep;
-	bool			is_nb_of_meals;
+	bool			has_nb_of_meals;
     int				nb_of_meals;
 	t_ms			start_time;
 	pthread_mutex_t	print_mutex;
@@ -75,8 +75,8 @@ typedef struct s_fork
 typedef	struct s_philosopher
 {
 	int				ID;
-	t_fork			left_fork;
-	t_fork			right_fork;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
 	t_ms			lifetime;
 	t_simulation	*simulation;
 }				t_philosopher;
@@ -118,7 +118,7 @@ bool	is_number(char *str);
 /*								  Debug		       			                  */
 /* ************************************************************************** */
 
-void	print_philosophers(t_simulation *simulation);
+void	print_philosophers(t_simulation *simulation, t_philosopher *philosophers);
 
 /* ************************************************************************** */
 /*							  Error_and_Exit								  */
