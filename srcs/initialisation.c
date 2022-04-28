@@ -10,6 +10,7 @@ t_simulation	init_simulation(void)
 	simulation.has_nb_of_meals = false;
 	simulation.nb_of_meals = 0;
 	simulation.start_time = 0;
+	pthread_mutex_init(&simulation.print_mutex, NULL);
 	return (simulation);
 }
 
@@ -40,6 +41,7 @@ t_simulation	get_simulation_parameters(int argc, char **argv)
 		i++;
 	}
 	simulation.has_ended = false;
+	simulation.death_message_was_printed = false;
 	return (simulation);
 }
 

@@ -58,6 +58,8 @@ void	clean_the_table(pthread_t *threads, t_fork *forks,
 			pthread_mutex_destroy(&(forks[i++].mutex));
 		free(forks);
 	}
+	if (simulation)
+		pthread_mutex_destroy(&simulation->print_mutex);
 }
 
 void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,

@@ -8,6 +8,7 @@ static bool	philosopher_has_died(t_philosopher *philosopher)
 	if (philosopher->lifetime <= time_of_death)
 	{
 		philosopher->simulation->has_ended = true;
+		usleep(1000);
 		print_life_state(philosopher, DIED, time_of_death);
 		return (true);
 	}
@@ -33,6 +34,5 @@ bool	simulation_had_to_end(t_philosopher *philosopher)
 	if (philosopher->simulation->has_nb_of_meals)
 		if (all_bellies_have_exploded(philosopher))
 			return (true);
-	//if (everyone_is_happy)
 	return (false);
 }

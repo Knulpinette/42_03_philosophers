@@ -37,7 +37,6 @@ static int	run_simulation(t_simulation *simulation,
 			error_and_exit(THREAD_ERROR, threads, NULL, NULL, NULL);
 		i++;
 	}
-	//print_philosophers(simulation, philosophers);
 	clean_the_table(threads, forks, simulation, philosophers);
 	return (EXIT_SUCCESS);
 }

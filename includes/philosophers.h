@@ -61,6 +61,7 @@ typedef struct s_simulation
     int				nb_of_meals;
 	t_ms			start_time;
 	bool			has_ended;
+	bool			death_message_was_printed;
 	pthread_mutex_t	print_mutex;
 }               t_simulation;
 
@@ -98,6 +99,7 @@ typedef enum e_life_action
 
 
 void	*live_life(void *philosophers);
+void	take_forks(t_philosopher *philosopher);
 void	eating(t_philosopher *philosopher);
 void	sleeping(t_philosopher *philosopher);
 void	thinking(t_philosopher *philosopher);
