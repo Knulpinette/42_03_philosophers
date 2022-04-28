@@ -93,7 +93,10 @@ void	thinking(t_philosopher *philosopher)
 	print_life_state(philosopher, THINK, started_thinking);
 	if (philosopher->simulation->nb % 2 == 0)
 	{
-		//if time to eat < time to sleep (or contrary ?) => do a different usleep
+		if (philosopher->simulation->time_to_eat 
+			< philosopher->simulation->time_to_sleep)
+			usleep((philosopher->simulation->time_to_sleep 
+				- philosopher->simulation->time_to_eat) * 1000);
 		usleep(1000);
 	}
 	take_forks(philosopher);
