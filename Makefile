@@ -12,7 +12,7 @@
 
 # -*-🦕-*- Make Philosophers -*-🦕-*- 
 
-NAME	= philosophers
+NAME	= philo
 
 # -*- Definitions of variables -*-
 
