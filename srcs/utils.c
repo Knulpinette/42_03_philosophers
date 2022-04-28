@@ -50,3 +50,13 @@ int	ft_atoi(const char *str)
 	}
 	return (nbr * np);
 }
+
+t_ms	get_time_in_ms(void)
+{
+	struct timeval	now;
+	t_ms			time_in_ms;
+
+	gettimeofday(&now, NULL);
+	time_in_ms = (t_ms)((now.tv_sec * 1000) + (now.tv_usec / 1000));
+	return (time_in_ms);
+}

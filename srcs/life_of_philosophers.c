@@ -23,50 +23,69 @@ void	*live_life(void *newborn_philosopher)
 
 void	eating(t_philosopher *philosopher)
 {
-	/*if (its_the_end())
+	t_ms	took_fork;
+	t_ms	started_eating;
+	t_ms	eating_time;
+
+	if (simulation_had_to_end(philosopher))
 		return ;
-	take_right_fork()
-	take_left_fork()
-	(lock_mutexes)
-	while (time_to_eat)
-		wait;
-	if (nb_of_times_philo_must_eat)
-		nb_of_meals++;*/
-	(void)philosopher;
-	printf("Philosopher is eating\n");
+	while (!philosopher->left_fork 
+			|| philosopher->left_fork->taken == true
+			|| philosopher->right_fork->taken == true)
+	{
+		if (simulation_had_to_end(philosopher))
+			return ;
+	}
+	
+	philosopher->left_fork->taken = true;
+	philosopher->right_fork->taken = true;
+	pthread_mutex_lock(&philosopher->left_fork->mutex);
+	pthread_mutex_lock(&philosopher->right_fork->mutex);
+	took_fork = get_time_in_ms();
+	print_life_state(philosopher, FORK, took_fork);
+	print_life_state(philosopher, FORK, took_fork);
+
+	started_eating = get_time_in_ms();
+	eating_time = started_eating + philosopher->simulation->time_to_eat;
+	print_life_state(philosopher, EAT, started_eating);
+	philosopher->lifetime = started_eating + philosopher->simulation->time_to_die;
+	if (philosopher->simulation->has_nb_of_meals)
+		philosopher->nb_of_meals++;
+	while (get_time_in_ms() <= eating_time)
+		if (simulation_had_to_end(philosopher))
+			return ;
 	sleeping(philosopher);
 }
 
 void	sleeping(t_philosopher *philosopher)
 {
-	/*if (its_the_end())
+	t_ms	started_sleeping;
+	t_ms	nap_time;
+
+	if (simulation_had_to_end(philosopher))
 		return ;
-	while (time_to_sleep)
-		wait;*/
-	(void)philosopher;
-	printf("Philosopher is sleeping\n");
+	started_sleeping = get_time_in_ms();
+	nap_time = started_sleeping + philosopher->simulation->time_to_sleep;
+	pthread_mutex_unlock(&philosopher->left_fork->mutex);
+	pthread_mutex_unlock(&philosopher->right_fork->mutex);
+	philosopher->left_fork->taken = false;
+	philosopher->right_fork->taken = false;
+	print_life_state(philosopher, SLEEP, started_sleeping);
+	while (get_time_in_ms() <= nap_time)
+	{
+		if (simulation_had_to_end(philosopher))
+			return ;
+	}
 	thinking(philosopher);
 }
 
 void	thinking(t_philosopher *philosopher)
 {
-	/*if (its_the_end())
+	t_ms	started_thinking;
+
+	if (simulation_had_to_end(philosopher))
 		return ;
-	while (not_able_to_eat)
-		wait;*/
-	(void)philosopher;
-	printf("Philosopher is thinking\n");
-	//eating(philosopher);
+	started_thinking = get_time_in_ms();
+	print_life_state(philosopher, THINK, started_thinking);
+	eating(philosopher);
 }
-
-
-/*
-void	state_of_philosopher(p_thread *philosopher)
-{
-	printf("%i %i has taken a fork\n", timestamp_in_ms, philosopher->id->id);
-	printf("%i %i is eating\n", timestamp_in_ms, philosopher->id);
-	printf("%i %i is sleeping\n", timestamp_in_ms, philosopher->id);
-	printf("%i %i is thinking\n", timestamp_in_ms, philosopher->id);
-	printf("%i %i died\n", timestamp_in_ms, philosopher->id);
-}
-*/

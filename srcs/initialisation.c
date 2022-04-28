@@ -39,6 +39,7 @@ t_simulation	get_simulation_parameters(int argc, char **argv)
 			error_and_exit(WRONG_INPUT, NULL, NULL, NULL, NULL);
 		i++;
 	}
+	simulation.has_ended = false;
 	return (simulation);
 }
 
@@ -72,7 +73,7 @@ t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks)
 	i = 0;
 	while (i < simulation->nb)
 	{
-		philosophers[i].ID = simulation->nb;
+		philosophers[i].ID = i;
 		if (simulation->nb == 1)
 			philosophers[i].left_fork = NULL;
 		else if (i == simulation->nb - 1)

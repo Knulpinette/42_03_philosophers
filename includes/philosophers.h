@@ -60,6 +60,7 @@ typedef struct s_simulation
 	bool			has_nb_of_meals;
     int				nb_of_meals;
 	t_ms			start_time;
+	bool			has_ended;
 	pthread_mutex_t	print_mutex;
 }               t_simulation;
 
@@ -77,6 +78,7 @@ typedef	struct s_philosopher
 	int				ID;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
+	int				nb_of_meals;
 	t_ms			lifetime;
 	t_simulation	*simulation;
 }				t_philosopher;
@@ -101,7 +103,20 @@ void	sleeping(t_philosopher *philosopher);
 void	thinking(t_philosopher *philosopher);
 
 /* ************************************************************************** */
-/*							  Initialisation      			                  */
+/*								 life_diary  				                  */
+/* ************************************************************************** */
+
+void	print_life_state(t_philosopher *philosopher, 
+						t_life_action action, t_ms timestamp);
+
+/* ************************************************************************** */
+/*						      the_afterlife  	  			                  */
+/* ************************************************************************** */
+
+bool	simulation_had_to_end(t_philosopher *philosopher);
+
+/* ************************************************************************** */
+/*							  initialisation    			                  */
 /* ************************************************************************** */
 
 t_simulation	init_simulation(void);
@@ -110,20 +125,21 @@ t_fork			*init_forks(int nb_forks);
 t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks);
 
 /* ************************************************************************** */
-/*								  Utils		       			                  */
+/*								  utils		       			                  */
 /* ************************************************************************** */
 
 int		ft_atoi(const char *str);
 bool	is_number(char *str);
+t_ms	get_time_in_ms(void);
 
 /* ************************************************************************** */
-/*								  Debug		       			                  */
+/*								  debug		       			                  */
 /* ************************************************************************** */
 
 void	print_philosophers(t_simulation *simulation, t_philosopher *philosophers);
 
 /* ************************************************************************** */
-/*							  Error_and_Exit								  */
+/*							  error_and_exit								  */
 /* ************************************************************************** */
 
 typedef enum e_errors

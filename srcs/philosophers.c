@@ -22,8 +22,10 @@ static int	run_simulation(t_simulation *simulation,
 	if (!threads)
 		error_and_exit(FAIL_MALLOC, NULL, NULL, NULL, NULL);
 	i = 0;
+	simulation->start_time = get_time_in_ms();
 	while (i < simulation->nb)
 	{
+		philosophers[i].lifetime = simulation->start_time + simulation->time_to_die;
 		if (pthread_create(threads + i, NULL, &live_life, (void *)&philosophers[i]))
 			error_and_exit(THREAD_ERROR, threads, NULL, NULL, NULL);
 		i++;
@@ -35,7 +37,7 @@ static int	run_simulation(t_simulation *simulation,
 			error_and_exit(THREAD_ERROR, threads, NULL, NULL, NULL);
 		i++;
 	}
-	print_philosophers(simulation, philosophers);
+	//print_philosophers(simulation, philosophers);
 	clean_the_table(threads, forks, simulation, philosophers);
 	return (EXIT_SUCCESS);
 }
