@@ -18,9 +18,7 @@ static int	run_simulation(t_simulation *simulation,
 	pthread_t	*threads;
 	int			i;
 
-	threads = malloc(sizeof(pthread_t) * simulation->nb);
-	if (!threads)
-		error_and_exit(FAIL_MALLOC, NULL, NULL, NULL, NULL);
+	threads = malloc_or_exit(sizeof(pthread_t), simulation->nb);
 	i = 0;
 	simulation->start_time = get_time_in_ms();
 	while (i < simulation->nb)

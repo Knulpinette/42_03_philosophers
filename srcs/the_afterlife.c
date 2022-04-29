@@ -18,11 +18,17 @@ static bool	philosopher_has_died(t_philosopher *philosopher)
 static bool	all_bellies_have_exploded(t_philosopher *philosopher)
 {
 	int	not_hungry_anymore;
+	int	i;
 
-	not_hungry_anymore = philosopher->simulation->nb_of_meals;
-	if (philosopher->nb_of_meals > not_hungry_anymore) // here we need to go through an array of meals that would be in the simulation for sharing purposes.
-		return (true);
-	return (false);
+	not_hungry_anymore = philosopher->simulation->max_nb_of_meals;
+	i = 0;
+	while (i < philosopher->simulation->nb)
+	{
+		if (philosopher->simulation->nb_of_meals[i] < not_hungry_anymore)
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
 bool	simulation_had_to_end(t_philosopher *philosopher)
@@ -31,8 +37,12 @@ bool	simulation_had_to_end(t_philosopher *philosopher)
 		return (true);
 	if (philosopher_has_died(philosopher))	
 		return (true);
-	if (philosopher->simulation->has_nb_of_meals)
+	if (philosopher->simulation->has_nb_of_meals 
+			&& (philosopher->simulation->nb_of_meals[philosopher->ID] 
+			>= philosopher->simulation->max_nb_of_meals))
+	{
 		if (all_bellies_have_exploded(philosopher))
 			return (true);
+	}
 	return (false);
 }

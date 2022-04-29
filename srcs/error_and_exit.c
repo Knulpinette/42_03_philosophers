@@ -59,7 +59,11 @@ void	clean_the_table(pthread_t *threads, t_fork *forks,
 		free(forks);
 	}
 	if (simulation)
+	{
 		pthread_mutex_destroy(&simulation->print_mutex);
+		if (simulation->has_nb_of_meals)
+			free(simulation->nb_of_meals);
+	}
 }
 
 void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
@@ -68,4 +72,14 @@ void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
 	clean_the_table(threads, forks, simulation, philosophers);
 	error_message(error);
 	exit(EXIT_FAILURE);
+}
+
+void	*malloc_or_exit(size_t size, int count)
+{
+	void	*result;
+
+	result = malloc(size * count);
+	if (!result)
+		error_and_exit(FAIL_MALLOC, NULL, NULL, NULL, NULL);
+	return (result);
 }

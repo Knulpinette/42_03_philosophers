@@ -9,7 +9,7 @@ void	print_philosophers(t_simulation *simulation, t_philosopher *philosophers)
 	printf("time_to_eat = %lli\n", simulation->time_to_eat);
 	printf("time_to_sleep = %lli\n", simulation->time_to_sleep);
 	if (simulation->has_nb_of_meals)
-		printf("number_of_time_each_philosophers_must_eat = %i\n", simulation->nb_of_meals);
+		printf("number_of_time_each_philosophers_must_eat = %i\n", simulation->max_nb_of_meals);
 	printf(""END_COLOR"");
 	
 	i = 0;

@@ -58,7 +58,8 @@ typedef struct s_simulation
     t_ms			time_to_eat;
     t_ms			time_to_sleep;
 	bool			has_nb_of_meals;
-    int				nb_of_meals;
+    int				max_nb_of_meals;
+	int				*nb_of_meals;
 	t_ms			start_time;
 	bool			has_ended;
 	bool			death_message_was_printed;
@@ -157,5 +158,6 @@ void	clean_the_table(pthread_t *threads, t_fork *forks,
 						t_simulation *simulation, t_philosopher *philosophers);
 void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
 						t_simulation *simulation, t_philosopher *philosophers);
+void	*malloc_or_exit(size_t size, int count);
 
 #endif

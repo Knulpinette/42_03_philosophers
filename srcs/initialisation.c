@@ -11,7 +11,22 @@ t_simulation	init_simulation(void)
 	simulation.nb_of_meals = 0;
 	simulation.start_time = 0;
 	pthread_mutex_init(&simulation.print_mutex, NULL);
+	simulation.has_ended = false;
+	simulation.death_message_was_printed = false;
 	return (simulation);
+}
+
+static void		init_max_nb_meals(t_simulation *simulation, char *argv)
+{
+	int	j;
+
+	j = 0;
+	simulation->has_nb_of_meals = true;
+	simulation->max_nb_of_meals = ft_atoi(argv);
+	simulation->nb_of_meals = malloc_or_exit(sizeof(int), simulation->nb);
+	j = 0;
+	while (j < simulation->nb)
+		simulation->nb_of_meals[j++] = 0;
 }
 
 t_simulation	get_simulation_parameters(int argc, char **argv)
@@ -32,16 +47,11 @@ t_simulation	get_simulation_parameters(int argc, char **argv)
 		else if (i == 4 && is_number(argv[i]))
 			simulation.time_to_sleep = ft_atoi(argv[i]);
 		else if (i == 5 && is_number(argv[i]))
-		{
-			simulation.has_nb_of_meals = true;
-			simulation.nb_of_meals = ft_atoi(argv[i]);
-		}
+			init_max_nb_meals(&simulation, argv[i]);
 		else
 			error_and_exit(WRONG_INPUT, NULL, NULL, NULL, NULL);
 		i++;
 	}
-	simulation.has_ended = false;
-	simulation.death_message_was_printed = false;
 	return (simulation);
 }
 
@@ -50,9 +60,7 @@ t_fork	*init_forks(int nb_forks)
 	t_fork	*forks;
 	int		i;
 
-	forks = (t_fork *)malloc(sizeof(t_fork) * nb_forks);
-	if (!forks)
-		return (NULL);
+	forks = malloc_or_exit(sizeof(t_fork), nb_forks);
 	i = 0;
 	while (i < nb_forks)
 	{
@@ -69,9 +77,7 @@ t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks)
 	t_philosopher *philosophers;
 	int				i;
 
-	philosophers = (t_philosopher *)malloc(sizeof(t_philosopher) * simulation->nb);
-	if (!philosophers)
-		return (NULL);
+	philosophers = malloc_or_exit(sizeof(t_philosopher), simulation->nb);
 	i = 0;
 	while (i < simulation->nb)
 	{
