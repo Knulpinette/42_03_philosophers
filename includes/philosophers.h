@@ -86,7 +86,16 @@ typedef	struct s_philosopher
 }				t_philosopher;
 
 /* ************************************************************************** */
-/*							 life_of_philosopher  			                  */
+/*							  table_setup	    			                  */
+/* ************************************************************************** */
+
+t_simulation	init_simulation(void);
+t_simulation	get_simulation_parameters(int argc, char **argv);
+t_fork			*init_forks(int nb_forks, t_simulation *simulation);
+t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks);
+
+/* ************************************************************************** */
+/*						 life_of_a_philosopher  			                  */
 /* ************************************************************************** */
 
 typedef enum e_life_action
@@ -106,7 +115,7 @@ void	sleeping(t_philosopher *philosopher);
 void	thinking(t_philosopher *philosopher);
 
 /* ************************************************************************** */
-/*								 life_diary  				                  */
+/*								 write_diary  				                  */
 /* ************************************************************************** */
 
 void	write_in_diary(t_philosopher *philosopher, 
@@ -119,15 +128,6 @@ void	write_in_diary(t_philosopher *philosopher,
 bool	simulation_had_to_end(t_philosopher *philosopher);
 
 /* ************************************************************************** */
-/*							  initialisation    			                  */
-/* ************************************************************************** */
-
-t_simulation	init_simulation(void);
-t_simulation	get_simulation_parameters(int argc, char **argv);
-t_fork			*init_forks(int nb_forks);
-t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks);
-
-/* ************************************************************************** */
 /*								  utils		       			                  */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ bool	is_number(char *str);
 t_ms	get_time_in_ms(void);
 
 /* ************************************************************************** */
-/*							  error_and_exit								  */
+/*							  clean_the_table								  */
 /* ************************************************************************** */
 
 typedef enum e_errors
@@ -150,7 +150,9 @@ typedef enum e_errors
 
 void	clean_the_table(pthread_t *threads, t_fork *forks,
 						t_simulation *simulation, t_philosopher *philosophers);
-void    error_and_exit(t_errors error, pthread_t *threads);
-void	*malloc_or_exit(size_t size, int count);
+void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
+						t_simulation *simulation, t_philosopher *philosophers);
+void	*malloc_or_exit(size_t size, int count, t_fork *forks,
+						t_simulation *simulation, t_philosopher *philosophers);
 
 #endif

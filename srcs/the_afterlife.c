@@ -10,6 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+**
+** the_afterlife
+**
+**	Here we have all the conditions to interupt the life_of_philosopher loop.
+**
+**	1. If a philosopher has died (if he waited too long to eat)
+**		If that's the case, we need to setup a bool saying the
+**		simulation has ended so that it cascades back and stops
+**		the recursion
+**			The usleep is here to avoid having two philosophers dying
+**			at the same time to be printed.
+**	2. If all philosophers ate their maximum number of meals
+**
+** 🦕
+*/
+
 #include "philosophers.h"
 
 static bool	philosopher_has_died(t_philosopher *philosopher)

@@ -17,9 +17,18 @@
 **
 ** write_philosophers_diary
 **
-**	Here we handle all errors and exit processes.
+**	Here we write the status of all philosophers
+**		> timestamp_in_ms  philosopher_ID  current_action
 **
-**	oioio
+**	We have a print_mutex to garantee that everything get's written
+**		in order even when actions are performed simulteanously.
+**		We have also a bool "death_message_was_printed" to protect that
+**		the last message printed will be the death of a philosopher even
+**		if others are still doing things.
+**
+**	Philosophers->ID are shown as +1 to avoid having a Philosopher 0.
+**	Timestamps are converting the current time in ms to the time since
+**		beginning of simulation.
 **
 ** 🦕
 */

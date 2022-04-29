@@ -19,14 +19,14 @@
 **
 **	Here we handle all errors and exit processes.
 **
-**	oioio
+**	1. Clean_the_table frees all the structs
+**	2. Error_and_exit handles the errors.
 **
 ** 🦕
 */
 
 static void print_instruction(void)
 {
-    printf("    📚 "PURPLE"INSTRUCTIONS"END_COLOR"  📚\n");
 	printf("\n🦕🍭	"YELLOW"To use philosophers"END_COLOR"\n");
     printf("	./philosophers ");
 	printf(""LIGHT_GRAY"number_of_philosophers time_to_die time_to_eat");
@@ -78,19 +78,21 @@ void	clean_the_table(pthread_t *threads, t_fork *forks,
 	}
 }
 
-void    error_and_exit(t_errors error, pthread_t *threads)
+void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
+						t_simulation *simulation, t_philosopher *philosophers)
 {
-	clean_the_table(threads, NULL, NULL, NULL);
+	clean_the_table(threads, forks, simulation, philosophers);
 	error_message(error);
 	exit(EXIT_FAILURE);
 }
 
-void	*malloc_or_exit(size_t size, int count)
+void	*malloc_or_exit(size_t size, int count, t_fork *forks,
+						t_simulation *simulation, t_philosopher *philosophers)
 {
 	void	*result;
 
 	result = malloc(size * count);
 	if (!result)
-		error_and_exit(FAIL_MALLOC, NULL);
+		error_and_exit(FAIL_MALLOC, NULL, forks, simulation, philosophers);
 	return (result);
 }
