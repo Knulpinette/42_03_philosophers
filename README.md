@@ -1,3 +1,3 @@
 # Philosophers
 
-* Comments are in the code !
+Comments are in the code =)
