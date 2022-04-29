@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   the_afterlife.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/02 18:56:46 by osurcouf          #+#    #+#             */
+/*   Updated: 2022/04/02 18:56:47 by osurcouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 static bool	philosopher_has_died(t_philosopher *philosopher)
@@ -9,7 +21,7 @@ static bool	philosopher_has_died(t_philosopher *philosopher)
 	{
 		philosopher->simulation->has_ended = true;
 		usleep(1000);
-		print_life_state(philosopher, DIED, time_of_death);
+		write_in_diary(philosopher, DIED, time_of_death);
 		return (true);
 	}
 	return (false);

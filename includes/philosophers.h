@@ -109,7 +109,7 @@ void	thinking(t_philosopher *philosopher);
 /*								 life_diary  				                  */
 /* ************************************************************************** */
 
-void	print_life_state(t_philosopher *philosopher, 
+void	write_in_diary(t_philosopher *philosopher, 
 						t_life_action action, t_ms timestamp);
 
 /* ************************************************************************** */
@@ -136,12 +136,6 @@ bool	is_number(char *str);
 t_ms	get_time_in_ms(void);
 
 /* ************************************************************************** */
-/*								  debug		       			                  */
-/* ************************************************************************** */
-
-void	print_philosophers(t_simulation *simulation, t_philosopher *philosophers);
-
-/* ************************************************************************** */
 /*							  error_and_exit								  */
 /* ************************************************************************** */
 
@@ -156,8 +150,7 @@ typedef enum e_errors
 
 void	clean_the_table(pthread_t *threads, t_fork *forks,
 						t_simulation *simulation, t_philosopher *philosophers);
-void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
-						t_simulation *simulation, t_philosopher *philosophers);
+void    error_and_exit(t_errors error, pthread_t *threads);
 void	*malloc_or_exit(size_t size, int count);
 
 #endif

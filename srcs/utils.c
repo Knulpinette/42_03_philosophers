@@ -12,6 +12,20 @@
 
 #include "philosophers.h"
 
+/*
+** 🦕
+**
+** utils
+**
+** 1. utils to validate input
+**		parsing if it's all numbers
+**		and ft_atoi since we can't use the libft
+**
+**	2. utils to get the current time in ms
+**
+** 🦕
+*/
+
 bool	is_number(char *str)
 {
 	int	i;

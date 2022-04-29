@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   table_setup.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/02 18:56:46 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/10/02 18:56:47 by osurcouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 t_simulation	init_simulation(void)
@@ -49,7 +61,7 @@ t_simulation	get_simulation_parameters(int argc, char **argv)
 		else if (i == 5 && is_number(argv[i]))
 			init_max_nb_meals(&simulation, argv[i]);
 		else
-			error_and_exit(WRONG_INPUT, NULL, NULL, NULL, NULL);
+			error_and_exit(WRONG_INPUT, NULL);
 		i++;
 	}
 	return (simulation);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_errors.c                                    :+:      :+:    :+:   */
+/*   clean_the_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,18 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+/*
+** 🦕
+**
+** clean_the_table
+**
+**	Here we handle all errors and exit processes.
+**
+**	oioio
+**
+** 🦕
+*/
 
 static void print_instruction(void)
 {
@@ -66,10 +78,9 @@ void	clean_the_table(pthread_t *threads, t_fork *forks,
 	}
 }
 
-void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
-						t_simulation *simulation, t_philosopher *philosophers)
+void    error_and_exit(t_errors error, pthread_t *threads)
 {
-	clean_the_table(threads, forks, simulation, philosophers);
+	clean_the_table(threads, NULL, NULL, NULL);
 	error_message(error);
 	exit(EXIT_FAILURE);
 }
@@ -80,6 +91,6 @@ void	*malloc_or_exit(size_t size, int count)
 
 	result = malloc(size * count);
 	if (!result)
-		error_and_exit(FAIL_MALLOC, NULL, NULL, NULL, NULL);
+		error_and_exit(FAIL_MALLOC, NULL);
 	return (result);
 }

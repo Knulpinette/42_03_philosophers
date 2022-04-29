@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   life_of_a_philosophers.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -71,8 +71,8 @@ void	take_forks(t_philosopher *philosopher)
 	pthread_mutex_lock(&philosopher->left_fork->mutex);
 	pthread_mutex_lock(&philosopher->right_fork->mutex);
 	took_forks = get_time_in_ms();
-	print_life_state(philosopher, FORK, took_forks);
-	print_life_state(philosopher, FORK, took_forks);
+	write_in_diary(philosopher, FORK, took_forks);
+	write_in_diary(philosopher, FORK, took_forks);
 	eating(philosopher);
 }
 
@@ -84,7 +84,7 @@ void	eating(t_philosopher *philosopher)
 	if (simulation_had_to_end(philosopher))
 		return ;
 	started_eating = get_time_in_ms();
-	print_life_state(philosopher, EAT, started_eating);
+	write_in_diary(philosopher, EAT, started_eating);
 	eating_time = started_eating + philosopher->simulation->time_to_eat;
 	philosopher->lifetime = started_eating + philosopher->simulation->time_to_die;
 	while (get_time_in_ms() <= eating_time)
@@ -108,7 +108,7 @@ void	sleeping(t_philosopher *philosopher)
 	if (simulation_had_to_end(philosopher))
 		return ;
 	started_sleeping = get_time_in_ms();
-	print_life_state(philosopher, SLEEP, started_sleeping);
+	write_in_diary(philosopher, SLEEP, started_sleeping);
 	pthread_mutex_unlock(&philosopher->left_fork->mutex);
 	pthread_mutex_unlock(&philosopher->right_fork->mutex);
 	philosopher->left_fork->taken = false;
@@ -148,7 +148,7 @@ void	thinking(t_philosopher *philosopher)
 	if (simulation_had_to_end(philosopher))
 		return ;
 	started_thinking = get_time_in_ms();
-	print_life_state(philosopher, THINK, started_thinking);
+	write_in_diary(philosopher, THINK, started_thinking);
 	if (philosopher->simulation->nb % 2 == 0)
 	{
 		if (philosopher->simulation->time_to_eat 
