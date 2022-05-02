@@ -154,8 +154,8 @@ void	thinking(t_philosopher *philosopher)
 		if (philosopher->simulation->time_to_eat 
 			< philosopher->simulation->time_to_sleep)
 			usleep((philosopher->simulation->time_to_sleep 
-				- philosopher->simulation->time_to_eat) * 1000);
-		usleep(1000);
+				- philosopher->simulation->time_to_eat) * 500);
+		usleep(500);
 	}
 	take_forks(philosopher);
 }
