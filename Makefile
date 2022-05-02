@@ -5,18 +5,6 @@
 #                                                     +:+ +:+         +:+      #
 #    By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/02 18:57:05 by osurcouf          #+#    #+#              #
-#    Updated: 2021/10/02 18:57:06 by osurcouf         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 13:51:10 by osurcouf          #+#    #+#              #
 #    Updated: 2021/08/04 13:51:13 by osurcouf         ###   ########.fr        #
 #                                                                              #
@@ -24,7 +12,7 @@
 
 # -*-🦕-*- Make Philosophers -*-🦕-*- 
 
-NAME	= philosphers
+NAME	= philo
 
 # -*- Definitions of variables -*-
 
@@ -81,7 +69,11 @@ ${NAME}:	${OBJS}
 test:		${NAME}
 			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
 			@printf "\n🦕🍭	${YELLOW}To use philosophers${END}\n"
-			@printf "	./philosophers ${GRAY}??${END}"
+			@printf "	./philosophers ${GRAY}number_of_philosophers time_to_die time_to_eat \
+time_to_sleep [number_of_times_each_philosopher_must_eat]\n${END}"
+			@printf "	${CYAN}Times should be written in milliseconds\n"
+			@printf "	Do NOT test with more than 200 philosophers\n"
+			@printf "	Do NOT test with a time inferior to 60ms${END}"
 			@printf "\n\n"
 
 bonus:		${NAME} 

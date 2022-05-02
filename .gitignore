@@ -1,0 +1,6 @@
+objs
+./philosophers
+philosophers
+**/.DS_Store
+.vscode
+libft/
