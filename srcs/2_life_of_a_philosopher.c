@@ -82,14 +82,22 @@ void	eating(t_philosopher *philosopher)
 	t_ms	eating_time;
 
 	if (simulation_had_to_end(philosopher))
+	{
+		pthread_mutex_unlock(&philosopher->left_fork->mutex);
+		pthread_mutex_unlock(&philosopher->right_fork->mutex);
 		return ;
+	}
 	started_eating = get_time_in_ms();
 	write_in_diary(philosopher, EAT, started_eating);
 	eating_time = started_eating + philosopher->simulation->time_to_eat;
 	philosopher->lifetime = started_eating + philosopher->simulation->time_to_die;
 	while (get_time_in_ms() <= eating_time)
 		if (simulation_had_to_end(philosopher))
+		{
+			pthread_mutex_unlock(&philosopher->left_fork->mutex);
+			pthread_mutex_unlock(&philosopher->right_fork->mutex);
 			return ;
+		}
 	if (philosopher->simulation->has_nb_of_meals)
 		philosopher->simulation->nb_of_meals[philosopher->ID] += 1;
 	sleeping(philosopher);
@@ -106,7 +114,11 @@ void	sleeping(t_philosopher *philosopher)
 	t_ms	nap_time;
 
 	if (simulation_had_to_end(philosopher))
+	{
+		pthread_mutex_unlock(&philosopher->left_fork->mutex);
+		pthread_mutex_unlock(&philosopher->right_fork->mutex);
 		return ;
+	}
 	started_sleeping = get_time_in_ms();
 	write_in_diary(philosopher, SLEEP, started_sleeping);
 	pthread_mutex_unlock(&philosopher->left_fork->mutex);
@@ -152,7 +164,7 @@ void	thinking(t_philosopher *philosopher)
 	if (philosopher->simulation->nb % 2 == 0)
 	{
 		if (philosopher->simulation->time_to_eat 
-			< philosopher->simulation->time_to_sleep)
+			< philosopher->simulation->time_to_sleep) // or >
 			usleep((philosopher->simulation->time_to_eat 
 				- philosopher->simulation->time_to_sleep) * 1000);
 		usleep(1000);

@@ -67,7 +67,9 @@ bool	simulation_had_to_end(t_philosopher *philosopher)
 		return (true);
 	if (philosopher_has_died(philosopher))	
 		return (true);
-	if (philosopher->simulation->has_nb_of_meals 
+	if (!philosopher->simulation->has_nb_of_meals)
+		return (false);
+	if (philosopher->simulation->has_nb_of_meals
 			&& (philosopher->simulation->nb_of_meals[philosopher->ID] 
 			>= philosopher->simulation->max_nb_of_meals))
 	{
