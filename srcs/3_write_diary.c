@@ -43,7 +43,9 @@ void	write_in_diary(t_philosopher *philosopher,
 	pthread_mutex_lock(&philosopher->simulation->print_mutex);
 	timestamp = timestamp - philosopher->simulation->start_time;
 	printf("%lli %i ", timestamp, philosopher->ID + 1);
-	if (action == FORK)
+	if (action == DIED)
+		printf("died\n");
+	else if (action == FORK)
 		printf("has taken a fork\n");
 	else if (action == EAT)
 		printf("is eating\n");
@@ -51,7 +53,5 @@ void	write_in_diary(t_philosopher *philosopher,
 		printf("is sleeping\n");
 	else if (action == THINK)
 		printf("is thinking\n");
-	else if (action == DIED)
-		printf("died\n");
 	pthread_mutex_unlock(&philosopher->simulation->print_mutex);
 }

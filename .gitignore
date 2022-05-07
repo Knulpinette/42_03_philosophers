@@ -1,6 +1,10 @@
 objs
+./philo
 ./philosophers
+philo
 philosophers
 **/.DS_Store
 .vscode
 libft/
+philosophers_tester/
+Philosphers-42Project-Tester/

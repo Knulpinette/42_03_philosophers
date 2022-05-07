@@ -38,7 +38,7 @@ static bool	philosopher_has_died(t_philosopher *philosopher)
 	if (philosopher->lifetime <= time_of_death)
 	{
 		philosopher->simulation->has_ended = true;
-		usleep(1000);
+		usleep(1100);
 		write_in_diary(philosopher, DIED, time_of_death);
 		return (true);
 	}
