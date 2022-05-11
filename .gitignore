@@ -1,4 +1,5 @@
 objs
+./objs/
 ./philo
 ./philosophers
 philo
@@ -8,3 +9,4 @@ philosophers
 libft/
 philosophers_tester/
 Philosphers-42Project-Tester/
+philo

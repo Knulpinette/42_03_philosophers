@@ -69,7 +69,7 @@ ${NAME}:	${OBJS}
 test:		${NAME}
 			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
 			@printf "\n🦕🍭	${YELLOW}To use philosophers${END}\n"
-			@printf "	./philosophers ${GRAY}number_of_philosophers time_to_die time_to_eat \
+			@printf "	./philo ${GRAY}number_of_philosophers time_to_die time_to_eat \
 time_to_sleep [number_of_times_each_philosopher_must_eat]\n${END}"
 			@printf "	${CYAN}Times should be written in milliseconds\n"
 			@printf "	Do NOT test with more than 200 philosophers\n"
