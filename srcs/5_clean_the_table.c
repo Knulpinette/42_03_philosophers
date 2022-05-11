@@ -78,21 +78,18 @@ void	clean_the_table(pthread_t *threads, t_fork *forks,
 	}
 }
 
-void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
+void    error_and_exit(t_errors error, t_fork *forks,
 						t_simulation *simulation, t_philosopher *philosophers)
 {
-	clean_the_table(threads, forks, simulation, philosophers);
+	clean_the_table(NULL, forks, simulation, philosophers);
 	error_message(error);
 	exit(EXIT_FAILURE);
 }
 
-void	*malloc_or_exit(size_t size, int count, t_fork *forks,
+void	cleanup_threads_and_exit(pthread_t *threads, t_fork *forks,
 						t_simulation *simulation, t_philosopher *philosophers)
 {
-	void	*result;
-
-	result = malloc(size * count);
-	if (!result)
-		error_and_exit(FAIL_MALLOC, NULL, forks, simulation, philosophers);
-	return (result);
+	clean_the_table(threads, forks, simulation, philosophers);
+	error_message(THREAD_ERROR);
+	exit(EXIT_FAILURE);
 }

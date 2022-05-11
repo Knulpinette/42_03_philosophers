@@ -36,22 +36,23 @@ static int	run_simulation(t_simulation *simulation,
 	pthread_t	*threads;
 	int			i;
 
-	threads = malloc_or_exit(sizeof(pthread_t), simulation->nb, 
-								forks, simulation, philosophers);
+	threads = malloc(sizeof(pthread_t) * simulation->nb);
+	if (!threads)
+		error_and_exit(FAIL_MALLOC, forks, simulation, philosophers);
 	i = 0;
 	simulation->start_time = get_time_in_ms();
 	while (i < simulation->nb)
 	{
 		philosophers[i].lifetime = simulation->start_time + simulation->time_to_die;
 		if (pthread_create(threads + i, NULL, &live_life, (void *)&philosophers[i]))
-			error_and_exit(THREAD_ERROR, threads, forks, simulation, philosophers);
+			cleanup_threads_and_exit(threads, forks, simulation, philosophers);
 		i++;
 	}
 	i = 0;
 	while (i < simulation->nb)
 	{
 		if (pthread_join(threads[i], NULL))
-			error_and_exit(THREAD_ERROR, threads, forks, simulation, philosophers);
+			cleanup_threads_and_exit(threads, forks, simulation, philosophers);
 		i++;
 	}
 	clean_the_table(threads, forks, simulation, philosophers);
@@ -65,7 +66,7 @@ int	main(int argc, char **argv)
 	t_philosopher	*philosophers;
 
 	if (!argc || (argc < 5 || argc > 6))
-		error_and_exit(WRONG_INPUT, NULL, NULL, NULL, NULL);
+		error_and_exit(WRONG_INPUT, NULL, NULL, NULL);
 	simulation = get_simulation_parameters(argc, argv);
 	forks = init_forks(simulation.nb, &simulation);
 	philosophers = init_philosophers(&simulation, forks);

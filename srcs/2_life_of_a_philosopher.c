@@ -99,7 +99,7 @@ void	eating(t_philosopher *philosopher)
 			return ;
 		}
 	if (philosopher->simulation->has_nb_of_meals)
-		philosopher->simulation->nb_of_meals[philosopher->ID] += 1;
+		philosopher->simulation->nb_of_meals[philosopher->id] += 1;
 	sleeping(philosopher);
 }
 

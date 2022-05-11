@@ -26,7 +26,7 @@
 **		the last message printed will be the death of a philosopher even
 **		if others are still doing things.
 **
-**	Philosophers->ID are shown as +1 to avoid having a Philosopher 0.
+**	Philosophers->id are shown as +1 to avoid having a Philosopher 0.
 **	Timestamps are converting the current time in ms to the time since
 **		beginning of simulation.
 **
@@ -42,7 +42,7 @@ void	write_in_diary(t_philosopher *philosopher,
 		philosopher->simulation->death_message_was_printed = true;
 	pthread_mutex_lock(&philosopher->simulation->print_mutex);
 	timestamp = timestamp - philosopher->simulation->start_time;
-	printf("%lli %i ", timestamp, philosopher->ID + 1);
+	printf("%lli %i ", timestamp, philosopher->id + 1);
 	if (action == DIED)
 		printf("died\n");
 	else if (action == FORK)

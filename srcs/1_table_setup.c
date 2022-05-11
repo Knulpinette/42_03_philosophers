@@ -48,7 +48,9 @@ static void		init_max_nb_meals(t_simulation *simulation, char *argv)
 	j = 0;
 	simulation->has_nb_of_meals = true;
 	simulation->max_nb_of_meals = ft_atoi(argv);
-	simulation->nb_of_meals = malloc_or_exit(sizeof(int), simulation->nb, NULL, NULL, NULL);
+	simulation->nb_of_meals = malloc(sizeof(int) * simulation->nb);
+	if (!simulation->nb_of_meals)
+		error_and_exit(FAIL_MALLOC, NULL, simulation, NULL);
 	j = 0;
 	while (j < simulation->nb)
 		simulation->nb_of_meals[j++] = 0;
@@ -74,7 +76,7 @@ t_simulation	get_simulation_parameters(int argc, char **argv)
 		else if (i == 5 && is_number(argv[i]))
 			init_max_nb_meals(&simulation, argv[i]);
 		else
-			error_and_exit(WRONG_INPUT, NULL, NULL, NULL, NULL);
+			error_and_exit(WRONG_INPUT, NULL, NULL, NULL);
 		i++;
 	}
 	return (simulation);
@@ -85,11 +87,13 @@ t_fork	*init_forks(int nb_forks, t_simulation *simulation)
 	t_fork	*forks;
 	int		i;
 
-	forks = malloc_or_exit(sizeof(t_fork), nb_forks, NULL, simulation, NULL);
+	forks = malloc(sizeof(t_fork) * nb_forks);
+	if (!forks)
+		error_and_exit(FAIL_MALLOC, NULL, simulation, NULL);
 	i = 0;
 	while (i < nb_forks)
 	{
-		forks[i].ID = i;
+		forks[i].id = i;
 		pthread_mutex_init(&(forks[i].mutex), NULL);
 		forks[i].taken = false;
 		i++;
@@ -102,12 +106,13 @@ t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks)
 	t_philosopher *philosophers;
 	int				i;
 
-	philosophers = malloc_or_exit(sizeof(t_philosopher), simulation->nb,
-									forks, simulation, NULL);
+	philosophers = malloc(sizeof(t_philosopher) * simulation->nb);
+	if (!philosophers)
+		error_and_exit(FAIL_MALLOC, forks, simulation, NULL);
 	i = 0;
 	while (i < simulation->nb)
 	{
-		philosophers[i].ID = i;
+		philosophers[i].id = i;
 		if (simulation->nb == 1)
 			philosophers[i].left_fork = NULL;
 		else if (i == simulation->nb - 1)

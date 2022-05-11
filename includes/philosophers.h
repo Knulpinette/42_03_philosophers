@@ -49,35 +49,33 @@ time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
 	the death of a philosopher.
 */
 
-typedef	long long t_ms;
+typedef long long	t_ms;
 
 typedef struct s_simulation
 {
-    int				nb;
-	t_ms 			time_to_die;
-    t_ms			time_to_eat;
-    t_ms			time_to_sleep;
+	int				nb;
+	t_ms			time_to_die;
+	t_ms			time_to_eat;
+	t_ms			time_to_sleep;
 	bool			has_nb_of_meals;
-    int				max_nb_of_meals;
+	int				max_nb_of_meals;
 	int				*nb_of_meals;
 	t_ms			start_time;
 	bool			has_ended;
 	bool			death_message_was_printed;
 	pthread_mutex_t	print_mutex;
-}               t_simulation;
+}				t_simulation;
 
 typedef struct s_fork
 {
-	int				ID;
+	int				id;
 	pthread_mutex_t	mutex;
 	bool			taken;
-	
 }				t_fork;
 
-
-typedef	struct s_philosopher
+typedef struct s_philosopher
 {
-	int				ID;
+	int				id;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	int				nb_of_meals;
@@ -107,33 +105,32 @@ typedef enum e_life_action
 	DIED,
 }				t_life_action;
 
-
-void	*live_life(void *philosophers);
-void	take_forks(t_philosopher *philosopher);
-void	eating(t_philosopher *philosopher);
-void	sleeping(t_philosopher *philosopher);
-void	thinking(t_philosopher *philosopher);
+void			*live_life(void *philosophers);
+void			take_forks(t_philosopher *philosopher);
+void			eating(t_philosopher *philosopher);
+void			sleeping(t_philosopher *philosopher);
+void			thinking(t_philosopher *philosopher);
 
 /* ************************************************************************** */
 /*								 write_diary  				                  */
 /* ************************************************************************** */
 
-void	write_in_diary(t_philosopher *philosopher, 
-						t_life_action action, t_ms timestamp);
+void			write_in_diary(t_philosopher *philosopher,
+					t_life_action action, t_ms timestamp);
 
 /* ************************************************************************** */
 /*						      the_afterlife  	  			                  */
 /* ************************************************************************** */
 
-bool	simulation_had_to_end(t_philosopher *philosopher);
+bool			simulation_had_to_end(t_philosopher *philosopher);
 
 /* ************************************************************************** */
 /*								  utils		       			                  */
 /* ************************************************************************** */
 
-int		ft_atoi(const char *str);
-bool	is_number(char *str);
-t_ms	get_time_in_ms(void);
+int				ft_atoi(const char *str);
+bool			is_number(char *str);
+t_ms			get_time_in_ms(void);
 
 /* ************************************************************************** */
 /*							  clean_the_table								  */
@@ -141,18 +138,18 @@ t_ms	get_time_in_ms(void);
 
 typedef enum e_errors
 {
-    ERROR = -1,
+	ERROR = -1,
 	NO_PRINT,
 	WRONG_INPUT,
 	FAIL_MALLOC,
 	THREAD_ERROR,
-}               t_errors;
+}			t_errors;
 
-void	clean_the_table(pthread_t *threads, t_fork *forks,
-						t_simulation *simulation, t_philosopher *philosophers);
-void    error_and_exit(t_errors error, pthread_t *threads, t_fork *forks,
-						t_simulation *simulation, t_philosopher *philosophers);
-void	*malloc_or_exit(size_t size, int count, t_fork *forks,
-						t_simulation *simulation, t_philosopher *philosophers);
+void			clean_the_table(pthread_t *threads, t_fork *forks,
+					t_simulation *simulation, t_philosopher *philosophers);
+void			error_and_exit(t_errors err, t_fork *forks,
+					t_simulation *simulation, t_philosopher *philosophers);
+void			cleanup_threads_and_exit(pthread_t *threads, t_fork *forks,
+					t_simulation *simulation, t_philosopher *philosophers);
 
 #endif
