@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*	       	                                                                  */
 /*                                                        :::      ::::::::   */
 /*   clean_the_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -25,32 +25,32 @@
 ** 🦕
 */
 
-static void print_instruction(void)
+static void	print_instruction(void)
 {
 	printf("\n🦕🍭	"YELLOW"To use philosophers"END_COLOR"\n");
-    printf("	./philosophers ");
+	printf("	./philosophers ");
 	printf(""LIGHT_GRAY"number_of_philosophers time_to_die time_to_eat");
-    printf(" time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
-    printf(""END_COLOR"");
-    printf(""BOLDGRAY"        Times should be written in millisecond.\n");
-    printf("        Do NOT test with more than 200 philosophers\n");
-    printf("        Do NOT test with a time inferior to 60ms\n");
-    printf("\n");
+	printf(" time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
+	printf(""END_COLOR"");
+	printf(""BOLDGRAY"		Times should be written in millisecond.\n");
+	printf("		Do NOT test with more than 200 philosophers\n");
+	printf("		Do NOT test with a time inferior to 60ms\n");
+	printf("\n");
 }
 
-static void    error_message(int error)
+static void	error_message(int error)
 {
-    if (error == NO_PRINT)
-        return ;
-    printf(""RED"Error\n"END_COLOR"");
-    if (error == WRONG_INPUT)
-    {
+	if (error == NO_PRINT)
+		return ;
+	printf(""RED"Error\n"END_COLOR"");
+	if (error == WRONG_INPUT)
+	{
 		printf("RTFM, young padawan! You wrote the arguments wrong...\n");
 		print_instruction();
-    }
-    if (error == THREAD_ERROR)
+	}
+	if (error == THREAD_ERROR)
 		printf("Failure to thread\n");
-    if (error == FAIL_MALLOC)
+	if (error == FAIL_MALLOC)
 		printf("Failure to allocate memory\n");
 }
 
@@ -61,10 +61,10 @@ void	clean_the_table(pthread_t *threads, t_fork *forks,
 
 	i = 0;
 	if (threads)
-	 	free(threads);
-    if (philosophers)
+		free(threads);
+	if (philosophers)
 		free(philosophers);
-    if (forks)
+	if (forks)
 	{
 		while (i < simulation->nb)
 			pthread_mutex_destroy(&(forks[i++].mutex));
@@ -78,7 +78,7 @@ void	clean_the_table(pthread_t *threads, t_fork *forks,
 	}
 }
 
-void    error_and_exit(t_errors error, t_fork *forks,
+void	error_and_exit(t_errors error, t_fork *forks,
 						t_simulation *simulation, t_philosopher *philosophers)
 {
 	clean_the_table(NULL, forks, simulation, philosophers);
