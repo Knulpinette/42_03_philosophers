@@ -30,32 +30,33 @@
 ** 🦕
 */
 
-static int	run_simulation(t_simulation *simulation, 
-							t_fork *forks, t_philosopher *philosophers)
+static int	run_simulation(t_simulation *simulation,
+							t_fork *forks, t_philosopher *philos)
 {
 	pthread_t	*threads;
 	int			i;
 
 	threads = malloc(sizeof(pthread_t) * simulation->nb);
 	if (!threads)
-		error_and_exit(FAIL_MALLOC, forks, simulation, philosophers);
+		error_and_exit(FAIL_MALLOC, forks, simulation, philos);
 	i = 0;
 	simulation->start_time = get_time_in_ms();
 	while (i < simulation->nb)
 	{
-		philosophers[i].lifetime = simulation->start_time + simulation->time_to_die;
-		if (pthread_create(threads + i, NULL, &live_life, (void *)&philosophers[i]))
-			cleanup_threads_and_exit(threads, forks, simulation, philosophers);
+		philos[i].lifetime
+			= simulation->start_time + simulation->time_to_die;
+		if (pthread_create(threads + i, NULL, &live_life, (void *)&philos[i]))
+			cleanup_threads_and_exit(threads, forks, simulation, philos);
 		i++;
 	}
 	i = 0;
 	while (i < simulation->nb)
 	{
 		if (pthread_join(threads[i], NULL))
-			cleanup_threads_and_exit(threads, forks, simulation, philosophers);
+			cleanup_threads_and_exit(threads, forks, simulation, philos);
 		i++;
 	}
-	clean_the_table(threads, forks, simulation, philosophers);
+	clean_the_table(threads, forks, simulation, philos);
 	return (EXIT_SUCCESS);
 }
 

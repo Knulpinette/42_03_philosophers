@@ -65,12 +65,12 @@ bool	simulation_had_to_end(t_philosopher *philosopher)
 {
 	if (philosopher->simulation->has_ended)
 		return (true);
-	if (philosopher_has_died(philosopher))	
+	if (philosopher_has_died(philosopher))
 		return (true);
 	if (!philosopher->simulation->has_nb_of_meals)
 		return (false);
 	if (philosopher->simulation->has_nb_of_meals
-			&& (philosopher->simulation->nb_of_meals[philosopher->id] 
+		&& (philosopher->simulation->nb_of_meals[philosopher->id]
 			>= philosopher->simulation->max_nb_of_meals))
 	{
 		if (all_bellies_have_exploded(philosopher))

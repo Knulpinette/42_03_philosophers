@@ -41,7 +41,7 @@ t_simulation	init_simulation(void)
 	return (simulation);
 }
 
-static void		init_max_nb_meals(t_simulation *simulation, char *argv)
+static void	init_max_nb_meals(t_simulation *simulation, char *argv)
 {
 	int	j;
 
@@ -103,7 +103,7 @@ t_fork	*init_forks(int nb_forks, t_simulation *simulation)
 
 t_philosopher	*init_philosophers(t_simulation *simulation, t_fork *forks)
 {
-	t_philosopher *philosophers;
+	t_philosopher	*philosophers;
 	int				i;
 
 	philosophers = malloc(sizeof(t_philosopher) * simulation->nb);

@@ -131,6 +131,7 @@ bool			simulation_had_to_end(t_philosopher *philosopher);
 int				ft_atoi(const char *str);
 bool			is_number(char *str);
 t_ms			get_time_in_ms(void);
+void			unlock_forks_and_return(t_philosopher *philosopher);
 
 /* ************************************************************************** */
 /*							  clean_the_table								  */

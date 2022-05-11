@@ -74,3 +74,10 @@ t_ms	get_time_in_ms(void)
 	time_in_ms = (t_ms)((now.tv_sec * 1000) + (now.tv_usec / 1000));
 	return (time_in_ms);
 }
+
+void	unlock_forks_and_return(t_philosopher *philosopher)
+{
+	pthread_mutex_unlock(&philosopher->left_fork->mutex);
+	pthread_mutex_unlock(&philosopher->right_fork->mutex);
+	return ;
+}

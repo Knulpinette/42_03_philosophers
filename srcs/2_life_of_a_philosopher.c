@@ -56,11 +56,11 @@ void	*live_life(void *newborn_philosopher)
 void	take_forks(t_philosopher *philosopher)
 {
 	t_ms	took_forks;
-	
+
 	if (simulation_had_to_end(philosopher))
 		return ;
-	while (!philosopher->left_fork 
-			|| (philosopher->left_fork->taken == true
+	while (!philosopher->left_fork
+		|| (philosopher->left_fork->taken == true
 			|| philosopher->right_fork->taken == true))
 	{
 		if (simulation_had_to_end(philosopher))
@@ -82,22 +82,18 @@ void	eating(t_philosopher *philosopher)
 	t_ms	eating_time;
 
 	if (simulation_had_to_end(philosopher))
-	{
-		pthread_mutex_unlock(&philosopher->left_fork->mutex);
-		pthread_mutex_unlock(&philosopher->right_fork->mutex);
-		return ;
-	}
+		return (unlock_forks_and_return(philosopher));
 	started_eating = get_time_in_ms();
 	write_in_diary(philosopher, EAT, started_eating);
-	eating_time = started_eating + philosopher->simulation->time_to_eat;
-	philosopher->lifetime = started_eating + philosopher->simulation->time_to_die;
+	eating_time
+		= started_eating + philosopher->simulation->time_to_eat;
+	philosopher->lifetime
+		= started_eating + philosopher->simulation->time_to_die;
 	while (get_time_in_ms() < eating_time)
+	{
 		if (simulation_had_to_end(philosopher))
-		{
-			pthread_mutex_unlock(&philosopher->left_fork->mutex);
-			pthread_mutex_unlock(&philosopher->right_fork->mutex);
-			return ;
-		}
+			return (unlock_forks_and_return(philosopher));
+	}
 	if (philosopher->simulation->has_nb_of_meals)
 		philosopher->simulation->nb_of_meals[philosopher->id] += 1;
 	sleeping(philosopher);
@@ -114,11 +110,7 @@ void	sleeping(t_philosopher *philosopher)
 	t_ms	nap_time;
 
 	if (simulation_had_to_end(philosopher))
-	{
-		pthread_mutex_unlock(&philosopher->left_fork->mutex);
-		pthread_mutex_unlock(&philosopher->right_fork->mutex);
-		return ;
-	}
+		return (unlock_forks_and_return(philosopher));
 	started_sleeping = get_time_in_ms();
 	write_in_diary(philosopher, SLEEP, started_sleeping);
 	pthread_mutex_unlock(&philosopher->left_fork->mutex);
@@ -133,8 +125,8 @@ void	sleeping(t_philosopher *philosopher)
 }
 
 /*
-** A little mandatory time to think was added when the number of philosophers
-**	is odd to avoid race conditions.
+** A little mandatory time to think was added when the number of
+** philosophers is odd to avoid race conditions.
 **
 **	@arievs explains it very well:
 **
@@ -144,13 +136,15 @@ void	sleeping(t_philosopher *philosopher)
 **	and either 1 or 3 should start eating now, but instead 1 and 3 start eating
 **	again and 5 starves. In order to avoid this, a small mandatory thinking time
 **	was added when the number of philosophers is odd. In this way, the ones who
-**	just finished sleeping and started thinking will be in disadvantage in comparison
-**	to those who are thinking the longest (and thus not eating the longest).
+**	just finished sleeping and started thinking will be in disadvantage in
+**	comparison to those who are thinking the longest (and thus not eating
+**	the longest).
 **
-** BUT that only works in time_to_eat and time_to_sleep are the same. If time_to_sleep
-**	is significantly smaller, that small mandatory thinking time won't make a difference.
-**	So if time_to_sleep is smaller than time_to_eat, my philosophers need to think
-**	for the difference between the two plus that small buffer.
+** BUT that only works in time_to_eat and time_to_sleep are the same. If 
+**	time_to_sleep is significantly smaller, that small mandatory thinking time
+**	won't make a difference. So if time_to_sleep is smaller than time_to_eat,
+**	my philosophers need to think for the difference between the two plus that
+**	small buffer.
 */
 
 void	thinking(t_philosopher *philosopher)
@@ -163,10 +157,10 @@ void	thinking(t_philosopher *philosopher)
 	write_in_diary(philosopher, THINK, started_thinking);
 	if (philosopher->simulation->nb % 2 != 0)
 	{
-		if (philosopher->simulation->time_to_eat 
+		if (philosopher->simulation->time_to_eat
 			> philosopher->simulation->time_to_sleep)
-			usleep((philosopher->simulation->time_to_eat 
-				- philosopher->simulation->time_to_sleep) * 1000);
+			usleep((philosopher->simulation->time_to_eat
+					- philosopher->simulation->time_to_sleep) * 1000);
 		usleep(1000);
 	}
 	take_forks(philosopher);

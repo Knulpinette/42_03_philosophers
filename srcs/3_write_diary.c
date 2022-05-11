@@ -33,7 +33,7 @@
 ** 🦕
 */
 
-void	write_in_diary(t_philosopher *philosopher, 
+void	write_in_diary(t_philosopher *philosopher,
 							t_life_action action, t_ms timestamp)
 {
 	if (philosopher->simulation->death_message_was_printed)
