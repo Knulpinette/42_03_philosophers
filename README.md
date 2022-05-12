@@ -2,7 +2,7 @@
 
 Play with philosophers as threads and mutexes. (No Bonus)  
 
-Comments are in the code =)
+🦕 Comments are in the code 🦕
 
 # Useful Links
 
