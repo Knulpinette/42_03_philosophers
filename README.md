@@ -2,7 +2,9 @@
 
 Play with philosophers as threads and mutexes. (No Bonus)  
 
-🦕 Comments are in the code 🦕
+* To use it, `make` and then follow the instructions.
+
+🦕 Comments are `in the code` 🦕
 
 # Useful Links
 
