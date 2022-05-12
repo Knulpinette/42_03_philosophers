@@ -1,7 +1,6 @@
 # Philosophers
 
 Play with philosophers as threads and mutexes. <br>
-(My version is with no bonuses!)  
 
 * To use it, `make` and then follow the instructions.
 
