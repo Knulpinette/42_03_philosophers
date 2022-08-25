@@ -1,6 +1,6 @@
 `42 School Project`
 
-# Philosophers
+# Philosophers 🧵
 
 Play with philosophers as threads and mutexes. <br>
 
