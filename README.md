@@ -2,6 +2,8 @@
 
 # Philosophers 🧵
 
+<a href="https://github.com/JaeSeoKim/badge42"><img src="https://badge42.vercel.app/api/v2/cl79akydw00490gi8w73o3in5/project/2363565" alt="osurcouf's 42 Philosophers Score" /></a>
+
 Play with philosophers as threads and mutexes. <br>
 
 * To use it, `make` and then follow the instructions.
